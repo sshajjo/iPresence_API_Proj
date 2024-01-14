@@ -6,7 +6,7 @@ namespace iPresence_API_Proj.Models
     public class Students
     {
         [Key]
-        public int Id { get; set; }
+        public int StudentId { get; set; }
 
         [Required]
         public string FirstName { get; set; }
@@ -17,15 +17,15 @@ namespace iPresence_API_Proj.Models
         [Required]
         public string Email { get; set; }
 
-        [StringLength(11, MinimumLength = 11, ErrorMessage = "Cell phone number must be 11 digits.")]
-        public int PhoneNumber { get; set; }
-
+        [Required]
         public DateTime EnrollmentDate { get; set; }
 
-        [ForeignKey("Program")]
-        public int ProgramID { get; set; }
+        [ForeignKey("SemesterID")]
+        public Semester SemesterFk { get; set; }
+        public int SemesterID { get; set; }
 
-        [ForeignKey("Classes")]
-        public int ClassID { get; set; }
+        [StringLength(12, MinimumLength = 8, ErrorMessage = "Password must contain 8 characters.")]
+        public string? Password { get; set; }
+
     }
 }
