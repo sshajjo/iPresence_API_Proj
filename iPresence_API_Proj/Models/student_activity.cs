@@ -18,7 +18,7 @@ namespace iPresence_API_Proj.Models
         public string Location { get; set; }
 
         [Required]
-        public string AttendanceMark { get; set; }
+        public Boolean AttendanceMark { get; set; }
 
 
         [ForeignKey("ClassId")]

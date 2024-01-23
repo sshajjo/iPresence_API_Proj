@@ -16,6 +16,8 @@ namespace iPresence_API_Proj.Models
         public DbSet<Semester> Semester { get; set; }
         public DbSet<Student_activity> Student_activity { get; set; }
         public DbSet<Teacher> Teacher { get; set; }
+        public DbSet<AccountTypes> AccountTypes { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

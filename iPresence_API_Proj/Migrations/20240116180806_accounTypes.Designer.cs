@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using iPresence_API_Proj.Models;
 
@@ -11,9 +12,10 @@ using iPresence_API_Proj.Models;
 namespace iPresence_API_Proj.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240116180806_accounTypes")]
+    partial class accounTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,9 +48,6 @@ namespace iPresence_API_Proj.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminId"), 1L, 1);
 
-                    b.Property<int>("AccountTypeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -70,8 +69,6 @@ namespace iPresence_API_Proj.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("AdminId");
-
-                    b.HasIndex("AccountTypeId");
 
                     b.ToTable("Admin");
                 });
@@ -157,8 +154,9 @@ namespace iPresence_API_Proj.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("AttendanceMark")
-                        .HasColumnType("bit");
+                    b.Property<string>("AttendanceMark")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
@@ -190,9 +188,6 @@ namespace iPresence_API_Proj.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"), 1L, 1);
 
-                    b.Property<int>("AccountTypeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -217,8 +212,6 @@ namespace iPresence_API_Proj.Migrations
 
                     b.HasKey("StudentId");
 
-                    b.HasIndex("AccountTypeId");
-
                     b.HasIndex("SemesterID");
 
                     b.ToTable("Students");
@@ -231,9 +224,6 @@ namespace iPresence_API_Proj.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeacherId"), 1L, 1);
-
-                    b.Property<int>("AccountTypeId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -256,20 +246,7 @@ namespace iPresence_API_Proj.Migrations
 
                     b.HasKey("TeacherId");
 
-                    b.HasIndex("AccountTypeId");
-
                     b.ToTable("Teacher");
-                });
-
-            modelBuilder.Entity("iPresence_API_Proj.Models.Admin", b =>
-                {
-                    b.HasOne("iPresence_API_Proj.Models.AccountTypes", "AccTypeFk")
-                        .WithMany()
-                        .HasForeignKey("AccountTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AccTypeFk");
                 });
 
             modelBuilder.Entity("iPresence_API_Proj.Models.Class", b =>
@@ -323,32 +300,13 @@ namespace iPresence_API_Proj.Migrations
 
             modelBuilder.Entity("iPresence_API_Proj.Models.Students", b =>
                 {
-                    b.HasOne("iPresence_API_Proj.Models.AccountTypes", "AccTypeFk")
-                        .WithMany()
-                        .HasForeignKey("AccountTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("iPresence_API_Proj.Models.Semester", "SemesterFk")
                         .WithMany()
                         .HasForeignKey("SemesterID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AccTypeFk");
-
                     b.Navigation("SemesterFk");
-                });
-
-            modelBuilder.Entity("iPresence_API_Proj.Models.Teacher", b =>
-                {
-                    b.HasOne("iPresence_API_Proj.Models.AccountTypes", "AccTypeFk")
-                        .WithMany()
-                        .HasForeignKey("AccountTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AccTypeFk");
                 });
 #pragma warning restore 612, 618
         }
